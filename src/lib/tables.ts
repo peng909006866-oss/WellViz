@@ -14,13 +14,14 @@
 // 井类型枚举
 // ═══════════════════════════════════════════════════════════════════
 
-export type WellType = 'manhole' | 'sedimentation' | 'dropManhole' | 'gully';
+export type WellType = 'manhole' | 'sedimentation' | 'dropManhole' | 'gully' | 'drainageManhole';
 
 export const WELL_TYPE_LABELS: Record<WellType, string> = {
   manhole: '圆形检查井',
   sedimentation: '沉泥井',
   dropManhole: '跌水井',
   gully: '雨水口',
+  drainageManhole: '排水检查井',
 };
 
 export const WELL_TYPE_ROUTES: Record<WellType, string> = {
@@ -28,6 +29,7 @@ export const WELL_TYPE_ROUTES: Record<WellType, string> = {
   sedimentation: '/sedimentation',
   dropManhole: '/drop-manhole',
   gully: '/gully',
+  drainageManhole: '/drainage',
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -517,6 +519,8 @@ export function getAvailableDiameters(wellType: WellType): number[] {
       return Object.keys(DROP_MANHOLE_TABLE).map(Number).sort((a, b) => a - b);
     case 'gully':
       return []; // 雨水口不按内径查表
+    case 'drainageManhole':
+      return Object.keys(DRAINAGE_MANHOLE_TABLE).map(Number).sort((a, b) => a - b);
     default:
       return [];
   }
@@ -537,6 +541,220 @@ export function parseRebarSpec(spec: string): { grade: string; diameter: number;
   const m = spec.match(/([A-Za-z])(\d+)@(\d+)/);
   if (!m) return { grade: 'C', diameter: 12, spacing: 200 };
   return { grade: m[1].toUpperCase(), diameter: parseInt(m[2], 10), spacing: parseInt(m[3], 10) };
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// 02S515 排水检查井
+// ═══════════════════════════════════════════════════════════════════
+
+/** 排水检查井井型 */
+export type DrainageManholeShape = 'circular' | 'rectangular';
+
+export const DRAINAGE_SHAPE_LABELS: Record<DrainageManholeShape, string> = {
+  circular: '圆形排水检查井',
+  rectangular: '矩形排水检查井',
+};
+
+/** 流槽形式 */
+export type ChannelType = 'halfPipe' | 'fullPipe' | 'flatBottom';
+
+export const CHANNEL_TYPE_LABELS: Record<ChannelType, string> = {
+  halfPipe: '半管流槽',
+  fullPipe: '全管流槽',
+  flatBottom: '平底流槽',
+};
+
+/**
+ * 02S515 排水检查井标准数据行
+ * 在 WellTableRow 基础上增加排水特有字段
+ */
+export interface DrainageManholeTableRow extends WellTableRow {
+  /** 适用管径列表 mm */
+  pipeDiameters: number[];
+  /** 井型 */
+  shape: DrainageManholeShape;
+  /** 流槽形式 */
+  channelType: ChannelType;
+  /** 矩形井: 井室长度 mm (圆形井同 diameter) */
+  chamberLength?: number;
+  /** 矩形井: 井室宽度 mm */
+  chamberWidth?: number;
+}
+
+/**
+ * 02S515 排水检查井标准数据表
+ *
+ * 查表逻辑: 管径 + 井深 → 井室尺寸 → 壁厚 → 配筋 → 混凝土量
+ * 数据来源: 02S515《排水检查井》国家标准图集
+ *
+ * key 为井径(mm)，每个井径对应多管径适用说明
+ */
+export const DRAINAGE_MANHOLE_TABLE: Record<number, DrainageManholeTableRow> = {
+  // ── Φ1000 圆形排水检查井 — 适用管径 DN300-DN600 ──
+  1000: {
+    diameter: 1000,
+    wallThickness: 240,
+    baseThickness: 250,
+    coverThickness: 150,
+    cover: 35,
+    vertBar: 'C14@200',
+    horizBar: 'C12@200',
+    coverBar: 'C12@150(double)',
+    baseBar: 'C14@200(double)',
+    concretePerM: 0.94,
+    formAreaPerM: 9.05,
+    steelPerM: 33.0,
+    applicableDepth: [1.0, 5.0],
+    coverTypes: ['lightCastIron', 'heavyCastIron'],
+    baseConcrete: 0.38,
+    pipeDiameters: [300, 400, 500, 600],
+    shape: 'circular',
+    channelType: 'halfPipe',
+  },
+  // ── Φ1200 圆形排水检查井 — 适用管径 DN600-DN800 ──
+  1200: {
+    diameter: 1200,
+    wallThickness: 240,
+    baseThickness: 250,
+    coverThickness: 180,
+    cover: 35,
+    vertBar: 'C14@200',
+    horizBar: 'C12@200',
+    coverBar: 'C14@150(double)',
+    baseBar: 'C14@200(double)',
+    concretePerM: 1.09,
+    formAreaPerM: 10.56,
+    steelPerM: 39.0,
+    applicableDepth: [1.5, 6.0],
+    coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
+    baseConcrete: 0.50,
+    pipeDiameters: [600, 800],
+    shape: 'circular',
+    channelType: 'halfPipe',
+  },
+  // ── Φ1500 圆形排水检查井 — 适用管径 DN800-DN1000 ──
+  1500: {
+    diameter: 1500,
+    wallThickness: 300,
+    baseThickness: 300,
+    coverThickness: 200,
+    cover: 40,
+    vertBar: 'C16@200',
+    horizBar: 'C14@200',
+    coverBar: 'C16@150(double)',
+    baseBar: 'C16@200(double)',
+    concretePerM: 1.70,
+    formAreaPerM: 13.19,
+    steelPerM: 54.0,
+    applicableDepth: [2.0, 6.0],
+    coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
+    baseConcrete: 0.85,
+    pipeDiameters: [800, 1000],
+    shape: 'circular',
+    channelType: 'halfPipe',
+  },
+  // ── 矩形 1100×1100 排水检查井 — 适用管径 DN400-DN600 ──
+  1100: {
+    diameter: 1100,
+    wallThickness: 240,
+    baseThickness: 250,
+    coverThickness: 150,
+    cover: 35,
+    vertBar: 'C14@200',
+    horizBar: 'C12@200',
+    coverBar: 'C12@150(double)',
+    baseBar: 'C14@200(double)',
+    concretePerM: 0.99,
+    formAreaPerM: 9.50,
+    steelPerM: 35.0,
+    applicableDepth: [1.0, 5.0],
+    coverTypes: ['lightCastIron', 'heavyCastIron'],
+    baseConcrete: 0.42,
+    pipeDiameters: [400, 500, 600],
+    shape: 'rectangular',
+    channelType: 'halfPipe',
+    chamberLength: 1100,
+    chamberWidth: 1100,
+  },
+};
+
+/**
+ * 管径→推荐井径映射表 (02S515 查表第一步)
+ * 根据管道直径和井型确定最小井径
+ */
+export const PIPE_TO_WELL_DIAMETER: Record<number, { circular: number; rectangular: number }> = {
+  300: { circular: 1000, rectangular: 1000 },
+  400: { circular: 1000, rectangular: 1100 },
+  500: { circular: 1000, rectangular: 1100 },
+  600: { circular: 1000, rectangular: 1100 },
+  800: { circular: 1200, rectangular: 1200 },
+  1000: { circular: 1500, rectangular: 1500 },
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// 02S515 查表引擎
+// ═══════════════════════════════════════════════════════════════════
+
+/**
+ * 根据管径 + 井深 + 井型 查排水检查井表
+ * 自动根据管径确定井径，再查结构参数
+ */
+export function lookupDrainageManhole(
+  pipeDia: number,
+  depth: number,
+  shape: DrainageManholeShape,
+): { row: DrainageManholeTableRow; warning?: string } {
+  const warnings: string[] = [];
+
+  // 1. 管径→井径映射
+  const mapping = PIPE_TO_WELL_DIAMETER[pipeDia];
+  if (!mapping) {
+    const available = Object.keys(PIPE_TO_WELL_DIAMETER).map(Number).sort((a, b) => a - b);
+    if (available.length === 0) throw new Error('排水检查井管径映射表为空');
+    const nearest = available.reduce((prev, curr) =>
+      Math.abs(curr - pipeDia) < Math.abs(prev - pipeDia) ? curr : prev,
+    );
+    warnings.push(`管径DN${pipeDia} 非标准尺寸，已取最接近的标准管径DN${nearest}`);
+    return lookupDrainageManhole(nearest, depth, shape);
+  }
+
+  const wellDia = mapping[shape];
+
+  // 2. 井径→结构参数
+  const row = DRAINAGE_MANHOLE_TABLE[wellDia];
+  if (!row) {
+    const availableDias = Object.keys(DRAINAGE_MANHOLE_TABLE).map(Number).sort((a, b) => a - b);
+    const nearestDia = availableDias.reduce((prev, curr) =>
+      Math.abs(curr - wellDia) < Math.abs(prev - wellDia) ? curr : prev,
+    );
+    warnings.push(`井径Φ${wellDia} 无对应数据，已取最接近的标准井径Φ${nearestDia}`);
+    const fallback = DRAINAGE_MANHOLE_TABLE[nearestDia];
+    return { row: fallback, warning: warnings.join('；') };
+  }
+
+  // 3. 井深范围校验
+  const depthM = depth / 1000;
+  if (depthM < row.applicableDepth[0] || depthM > row.applicableDepth[1]) {
+    warnings.push(
+      `井深${depthM.toFixed(1)}m 超出适用范围 ${row.applicableDepth[0]}-${row.applicableDepth[1]}m`,
+    );
+  }
+
+  return { row, warning: warnings.length > 0 ? warnings.join('；') : undefined };
+}
+
+/**
+ * 获取排水检查井可用的管径列表
+ */
+export function getAvailableDrainagePipeDiameters(): number[] {
+  return Object.keys(PIPE_TO_WELL_DIAMETER).map(Number).sort((a, b) => a - b);
+}
+
+/**
+ * 获取排水检查井可用的井型列表
+ */
+export function getAvailableDrainageShapes(): DrainageManholeShape[] {
+  return ['circular', 'rectangular'];
 }
 
 /**

@@ -1,13 +1,13 @@
 /**
  * WellViz 类型定义
  *
- * 06MS201 市政排水结构 3D 可视化
- * 4 种井类型: 检查井 / 沉泥井 / 跌水井 / 雨水口
+ * 06MS201 市政排水结构 3D 可视化 + 02S515 排水检查井
+ * 5 种井类型: 检查井 / 沉泥井 / 跌水井 / 雨水口 / 排水检查井
  */
 
-import type { CoverType, WellConcreteGrade, WellType } from './tables';
+import type { CoverType, WellConcreteGrade, WellType, DrainageManholeShape } from './tables';
 
-export type { CoverType, WellConcreteGrade, WellType };
+export type { CoverType, WellConcreteGrade, WellType, DrainageManholeShape };
 
 // ═══════════════════════════════════════════════════════════════════
 // 管道接口
@@ -25,7 +25,7 @@ export interface PipeConnection {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 检查井参数
+// 检查井参数 (06MS201)
 // ═══════════════════════════════════════════════════════════════════
 
 export interface ManholeParams {
@@ -34,6 +34,30 @@ export interface ManholeParams {
   diameter: number;
   /** 井深 mm (从盖板顶到筒体底) */
   depth: number;
+  /** 盖板类型 */
+  coverType: CoverType;
+  /** 混凝土等级 */
+  concreteGrade: WellConcreteGrade;
+  /** 管道接口列表 */
+  pipeConnections: PipeConnection[];
+  /** 是否设置爬梯/踏步 */
+  hasSteps: boolean;
+  /** 踏步间距 mm (默认 300) */
+  stepSpacing: number;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// 排水检查井参数 (02S515)
+// ═══════════════════════════════════════════════════════════════════
+
+export interface DrainageManholeParams {
+  id: string;
+  /** 管径 mm (DN300-DN1000) */
+  pipeDiameter: number;
+  /** 井深 mm (从盖板顶到井底) */
+  depth: number;
+  /** 井型 (圆形/矩形) */
+  shape: DrainageManholeShape;
   /** 盖板类型 */
   coverType: CoverType;
   /** 混凝土等级 */
@@ -112,7 +136,7 @@ export interface GullyParams {
 // 联合类型
 // ═══════════════════════════════════════════════════════════════════
 
-export type WellParams = ManholeParams | SedimentationParams | DropManholeParams | GullyParams;
+export type WellParams = ManholeParams | DrainageManholeParams | SedimentationParams | DropManholeParams | GullyParams;
 
 export type ComponentType = WellType;
 

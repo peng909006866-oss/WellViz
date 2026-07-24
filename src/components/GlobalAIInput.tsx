@@ -36,6 +36,7 @@ const EXAMPLE_PROMPTS = [
 
 const TYPE_COLORS: Record<ComponentType, string> = {
   manhole: 'text-teal-400',
+  drainageManhole: 'text-cyan-400',
   sedimentation: 'text-sky-400',
   dropManhole: 'text-orange-400',
   gully: 'text-indigo-400',

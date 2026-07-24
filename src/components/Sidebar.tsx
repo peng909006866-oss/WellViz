@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Box, Layers, ArrowDown, ArrowUpCircle, ChevronLeft, ChevronRight, PanelLeftOpen, Settings } from 'lucide-react';
+import { Box, Layers, ArrowDown, ArrowUpCircle, Droplets, ChevronLeft, ChevronRight, PanelLeftOpen, Settings } from 'lucide-react';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { ContactAuthorButton } from './ContactAuthor';
 
 const NAV = [
   { href: '/manhole', label: '检查井', desc: '圆形检查井', icon: Box },
+  { href: '/drainage', label: '排水检查井', desc: '02S515 排水井', icon: Droplets },
   { href: '/sedimentation', label: '沉泥井', desc: '沉泥井', icon: Layers },
   { href: '/drop-manhole', label: '跌水井', desc: '跌水井', icon: ArrowDown },
   { href: '/gully', label: '雨水口', desc: '雨水口', icon: ArrowUpCircle },

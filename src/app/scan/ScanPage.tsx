@@ -16,16 +16,16 @@ import { buildScanSystemPrompt, parseScanResult, type ScanResult } from '@/lib/a
 import type { ComponentType } from '@/lib/types';
 
 const COMPONENT_LABELS: Record<ComponentType, string> = {
-  manhole: '检查井', sedimentation: '沉泥井', dropManhole: '跌水井', gully: '雨水口',
+  manhole: '检查井', drainageManhole: '排水检查井', sedimentation: '沉泥井', dropManhole: '跌水井', gully: '雨水口',
 };
 
 const COMPONENT_ROUTES: Record<ComponentType, string> = {
-  manhole: '/manhole', sedimentation: '/sedimentation',
+  manhole: '/manhole', drainageManhole: '/drainage', sedimentation: '/sedimentation',
   dropManhole: '/drop-manhole', gully: '/gully',
 };
 
 const COMPONENT_COLORS: Record<ComponentType, string> = {
-  manhole: 'bg-teal-500', sedimentation: 'bg-sky-500',
+  manhole: 'bg-teal-500', drainageManhole: 'bg-cyan-500', sedimentation: 'bg-sky-500',
   dropManhole: 'bg-orange-500', gully: 'bg-indigo-500',
 
 };

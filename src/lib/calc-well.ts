@@ -7,10 +7,13 @@
  * 3. 竖向筋: 长度 = 井深+弯钩-保护层, 数量 = ceil(π×筒体中径/间距)
  * 4. 混凝土量 = concretePerM×井深 + 底板 + 盖板
  * 5. 总重量 = Σ(各级钢筋长度×每米重量)
+ *
+ * 支持: 06MS201 (市政排水) + 02S515 (排水检查井)
  */
 
 import type {
   ManholeParams,
+  DrainageManholeParams,
   SedimentationParams,
   DropManholeParams,
   GullyParams,
@@ -19,12 +22,14 @@ import type {
 } from './types';
 import {
   lookupManhole,
+  lookupDrainageManhole,
   lookupSedimentation,
   lookupDropManhole,
   lookupGully,
   parseRebarSpec,
   rebarWeightPerM,
   type WellTableRow,
+  type DrainageManholeTableRow,
   type GullyTableRow,
   type SedimentationExtra,
   type DropManholeExtra,
@@ -232,6 +237,44 @@ export function calcManhole(params: ManholeParams): WellCalcResult {
   };
 }
 
+/** 02S515 排水检查井计算 */
+export function calcDrainageManhole(params: DrainageManholeParams): WellCalcResult {
+  const { row } = lookupDrainageManhole(params.pipeDiameter, params.depth, params.shape);
+
+  const items = calcWellRebarCore({
+    diameter: row.diameter,
+    depth: params.depth,
+    wallThickness: row.wallThickness,
+    baseThickness: row.baseThickness,
+    cover: row.cover,
+    vertBar: row.vertBar,
+    horizBar: row.horizBar,
+    coverBar: row.coverBar,
+    baseBar: row.baseBar,
+    concreteGrade: params.concreteGrade,
+  });
+
+  const { volume, formArea } = calcConcreteVol({
+    concretePerM: row.concretePerM,
+    depth: params.depth,
+    baseConcrete: row.baseConcrete,
+    coverThickness: row.coverThickness,
+    diameter: row.diameter,
+    wallThickness: row.wallThickness,
+  });
+
+  const totalWeight = items.reduce((sum, it) => sum + it.weightKg, 0);
+
+  return {
+    items,
+    totalWeightKg: parseFloat(totalWeight.toFixed(2)),
+    concreteVolumeM3: volume,
+    formAreaM2: formArea,
+    wasteRate: 0.03,
+    totalWithWaste: parseFloat((totalWeight * 1.03).toFixed(2)),
+  };
+}
+
 export function calcSedimentation(params: SedimentationParams): WellCalcResult {
   const { row, extra } = lookupSedimentation(params.diameter);
 
@@ -372,7 +415,7 @@ export function calcGully(params: GullyParams): WellCalcResult {
 /**
  * 获取查表结果中的壁厚等信息，用于 3D 渲染
  */
-export function getWellDimensions(params: { wellType: string; diameter?: number; size?: string }): {
+export function getWellDimensions(params: { wellType: string; diameter?: number; size?: string; pipeDiameter?: number; depth?: number; shape?: string }): {
   diameter: number;
   wallThickness: number;
   baseThickness: number;
@@ -387,6 +430,25 @@ export function getWellDimensions(params: { wellType: string; diameter?: number;
     case 'manhole': {
       if (!params.diameter) return null;
       const { row } = lookupManhole(params.diameter);
+      return {
+        diameter: row.diameter,
+        wallThickness: row.wallThickness,
+        baseThickness: row.baseThickness,
+        coverThickness: row.coverThickness,
+        cover: row.cover,
+        vertBar: row.vertBar,
+        horizBar: row.horizBar,
+        coverBar: row.coverBar,
+        baseBar: row.baseBar,
+      };
+    }
+    case 'drainageManhole': {
+      if (!params.pipeDiameter || !params.depth || !params.shape) return null;
+      const { row } = lookupDrainageManhole(
+        params.pipeDiameter,
+        params.depth,
+        params.shape as 'circular' | 'rectangular',
+      );
       return {
         diameter: row.diameter,
         wallThickness: row.wallThickness,

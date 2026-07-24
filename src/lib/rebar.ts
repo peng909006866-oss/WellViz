@@ -45,6 +45,57 @@ export function gradeLabel(grade: string): string {
 }
 
 // ═══════════════════════════════════════════════════════════════════
+// 02S515 排水检查井预设
+// ═══════════════════════════════════════════════════════════════════
+
+export const DRAINAGE_MANHOLE_PRESETS = {
+  standard: {
+    id: 'PS-02S515-DN400-2.5',
+    pipeDiameter: 400,
+    depth: 2500,
+    shape: 'circular' as const,
+    coverType: 'heavyCastIron' as const,
+    concreteGrade: 'C30' as const,
+    pipeConnections: [] as { diameter: number; invertElevation: number; angle: number; type: 'inlet' | 'outlet' }[],
+    hasSteps: true,
+    stepSpacing: 300,
+  },
+  shallow: {
+    id: 'PS-02S515-DN300-1.5',
+    pipeDiameter: 300,
+    depth: 1500,
+    shape: 'circular' as const,
+    coverType: 'lightCastIron' as const,
+    concreteGrade: 'C25' as const,
+    pipeConnections: [],
+    hasSteps: false,
+    stepSpacing: 300,
+  },
+  deep: {
+    id: 'PS-02S515-DN1000-5.0',
+    pipeDiameter: 1000,
+    depth: 5000,
+    shape: 'circular' as const,
+    coverType: 'reinforcedConcrete' as const,
+    concreteGrade: 'C35' as const,
+    pipeConnections: [],
+    hasSteps: true,
+    stepSpacing: 300,
+  },
+  rectangular: {
+    id: 'PS-02S515-REC-DN500-3.0',
+    pipeDiameter: 500,
+    depth: 3000,
+    shape: 'rectangular' as const,
+    coverType: 'heavyCastIron' as const,
+    concreteGrade: 'C30' as const,
+    pipeConnections: [],
+    hasSteps: true,
+    stepSpacing: 300,
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════════
 // 检查井预设
 // ═══════════════════════════════════════════════════════════════════
 

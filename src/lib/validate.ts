@@ -3,10 +3,11 @@
  *
  * 基于 RebarViz validate.ts 适配
  * - 校验井径/井深/管径范围
+ * - 支持 06MS201 + 02S515
  */
 
-import type { ManholeParams, SedimentationParams, DropManholeParams, GullyParams } from './types';
-import { getAvailableDiameters, GULLY_TABLE } from './tables';
+import type { ManholeParams, DrainageManholeParams, SedimentationParams, DropManholeParams, GullyParams } from './types';
+import { getAvailableDiameters, getAvailableDrainagePipeDiameters, GULLY_TABLE } from './tables';
 
 export interface ValidationError {
   field: string;
@@ -34,6 +35,36 @@ export function validateManhole(params: ManholeParams): ValidationError[] {
 
   if (params.concreteGrade !== 'C25' && params.concreteGrade !== 'C30' && params.concreteGrade !== 'C35') {
     errors.push({ field: 'concreteGrade', message: '混凝土等级应为 C25/C30/C35' });
+  }
+
+  return errors;
+}
+
+export function validateDrainageManhole(params: DrainageManholeParams): ValidationError[] {
+  const errors: ValidationError[] = [];
+
+  if (!params.id || params.id.trim() === '') {
+    errors.push({ field: 'id', message: '请输入井编号' });
+  }
+
+  const validPipeDias = getAvailableDrainagePipeDiameters();
+  if (!validPipeDias.includes(params.pipeDiameter)) {
+    errors.push({
+      field: 'pipeDiameter',
+      message: `管径DN${params.pipeDiameter} 非标准尺寸，可用: ${validPipeDias.join(', ')}`,
+    });
+  }
+
+  if (params.depth < 1000 || params.depth > 6000) {
+    errors.push({ field: 'depth', message: '井深应在 1000-6000mm 之间' });
+  }
+
+  if (params.concreteGrade !== 'C25' && params.concreteGrade !== 'C30' && params.concreteGrade !== 'C35') {
+    errors.push({ field: 'concreteGrade', message: '混凝土等级应为 C25/C30/C35' });
+  }
+
+  if (params.shape !== 'circular' && params.shape !== 'rectangular') {
+    errors.push({ field: 'shape', message: '井型应为圆形或矩形' });
   }
 
   return errors;

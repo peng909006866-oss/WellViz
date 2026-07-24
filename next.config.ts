@@ -1,22 +1,14 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === 'production';
-const isNetlify = !!process.env.NETLIFY;
-const isVercel  = !!process.env.VERCEL;
-
-// basePath only needed for GitHub Pages (non-Netlify, non-Vercel prod)
-const basePath = isProd && !isNetlify && !isVercel ? '/RebarViz' : '';
-
-// Static export only for GitHub Pages; Vercel & Netlify serve full Next.js
-const staticExport = isProd && !isNetlify && !isVercel;
+// basePath for nginx sub-path proxy
+const basePath = '/well';
 
 const nextConfig: NextConfig = {
-  ...(staticExport ? { output: 'export' } : {}),
   basePath,
   assetPrefix: basePath,
   images: { unoptimized: true },
-  reactCompiler: true,
-  allowedDevOrigins: ['127.0.0.1', 'localhost'],
+  reactCompiler: false,
+  allowedDevOrigins: ['127.0.0.1', 'localhost', '192.168.3.67', '192.168.3.67:3020', '124.221.151.35', '124.221.151.35:5000'],
 };
 
 export default nextConfig;

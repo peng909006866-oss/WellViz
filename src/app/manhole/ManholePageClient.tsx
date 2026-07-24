@@ -6,7 +6,7 @@ import type { ManholeParams, RebarMeshInfo } from '@/lib/types';
 import { calcManhole } from '@/lib/calc-well';
 import { validateManhole, type ValidationError } from '@/lib/validate';
 import { MANHOLE_PRESETS } from '@/lib/rebar';
-import { Field, NumField, Legend, ResetButton, SelectField, Section } from '@/components/FormControls';
+import { NumField, Legend, ResetButton, SelectField, Section } from '@/components/FormControls';
 import { ShareButton } from '@/components/ShareButton';
 import { ViewerSkeleton } from '@/components/ViewerSkeleton';
 import { getAvailableDiameters, COVER_TYPE_LABELS, lookupManhole } from '@/lib/tables';
@@ -27,6 +27,11 @@ const CONCRETE_OPTIONS = [
 
 const COVER_OPTIONS = Object.entries(COVER_TYPE_LABELS).map(([value, label]) => ({ value, label }));
 
+const PRESET_OPTIONS = Object.entries(MANHOLE_PRESETS).map(([key, preset]) => ({
+  value: key,
+  label: preset.id,
+}));
+
 const presetList = [
   { key: 'standard', label: '标准 Φ1000', dot: 'bg-blue-400' },
   { key: 'shallow', label: '浅型 Φ700', dot: 'bg-green-400' },
@@ -45,6 +50,21 @@ const LEGEND_ITEMS = [
 
 const DEFAULT = { ...MANHOLE_PRESETS.standard };
 
+function findPresetKey(params: ManholeParams): string {
+  for (const [key, preset] of Object.entries(MANHOLE_PRESETS)) {
+    if (
+      preset.id === params.id &&
+      preset.diameter === params.diameter &&
+      preset.depth === params.depth &&
+      preset.coverType === params.coverType &&
+      preset.concreteGrade === params.concreteGrade
+    ) {
+      return key;
+    }
+  }
+  return '';
+}
+
 export function ManholePageClient() {
   const [params, setParams] = useState<ManholeParams>(DEFAULT);
   const [selectedInfo, setSelectedInfo] = useState<RebarMeshInfo | null>(null);
@@ -54,6 +74,8 @@ export function ManholePageClient() {
 
   const result = useMemo(() => calcManhole(params), [params]);
   const { row } = lookupManhole(params.diameter);
+
+  const currentPresetKey = useMemo(() => findPresetKey(params), [params]);
 
   function update<K extends keyof ManholeParams>(key: K, value: ManholeParams[K]) {
     const next = { ...params, [key]: value };
@@ -163,8 +185,9 @@ export function ManholePageClient() {
 
           {/* 参数输入 */}
           <div className="space-y-3">
-            <Field label="井编号" value={params.id} onChange={v => update('id', v)}
-                   error={errors.find(e => e.field === 'id')?.message} />
+            <SelectField label="井编号" value={currentPresetKey}
+                         onChange={v => { if (v) applyPreset(v); }}
+                         options={PRESET_OPTIONS} />
             <NumField label="井内径 Φ (mm)" value={params.diameter}
                       onChange={v => update('diameter', v)}
                       error={errors.find(e => e.field === 'diameter')?.message}

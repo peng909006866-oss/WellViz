@@ -131,8 +131,8 @@ export function CircularRing({
 /**
  * 竖向钢筋组
  *
- * 沿圆心在筒体外周均匀分布
- * 每根竖向筋是从底板顶到井口顶的直杆
+ * 沿圆心在筒体内侧均匀分布
+ * 每根竖向筋是从底板顶到井口顶的垂直直杆
  */
 export interface VerticalBarsProps {
   /** 组位置 */
@@ -209,8 +209,7 @@ export function VerticalBars({
       {bars.map((bar, i) => (
         <group
           key={i}
-          position={[bar.x, 0, bar.z]}
-          rotation={[Math.PI / 2, 0, 0]}
+          position={[bar.x, barLength / 2, bar.z]}
           onClick={(e) => {
             e.stopPropagation();
             onSelectBar?.(i);

@@ -1,13 +1,13 @@
 /**
  * WellViz 类型定义
  *
- * 06MS201 市政排水结构 3D 可视化 + 02S515 排水检查井
- * 5 种井类型: 检查井 / 沉泥井 / 跌水井 / 雨水口 / 排水检查井
+ * 06MS201 市政排水结构 3D 可视化 + 02S515 排水检查井 + 04S516 管道基础
+ * 6 种构件类型: 检查井 / 沉泥井 / 跌水井 / 雨水口 / 排水检查井 / 管道基础
  */
 
-import type { CoverType, WellConcreteGrade, WellType, DrainageManholeShape } from './tables';
+import type { CoverType, WellConcreteGrade, WellType, DrainageManholeShape, BeddingAngle } from './tables';
 
-export type { CoverType, WellConcreteGrade, WellType, DrainageManholeShape };
+export type { CoverType, WellConcreteGrade, WellType, DrainageManholeShape, BeddingAngle };
 
 // ═══════════════════════════════════════════════════════════════════
 // 管道接口
@@ -133,6 +133,41 @@ export interface GullyParams {
 }
 
 // ═══════════════════════════════════════════════════════════════════
+// 管道基础参数 (04S516)
+// ═══════════════════════════════════════════════════════════════════
+
+export interface PipeFoundationParams {
+  id: string;
+  /** 管道公称直径 mm (DN300-DN1500) */
+  pipeDiameter: number;
+  /** 管座包角 */
+  beddingAngle: BeddingAngle;
+  /** 管道长度 m */
+  pipeLength: number;
+  /** 混凝土等级 */
+  concreteGrade: WellConcreteGrade;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// 管道基础计算结果
+// ═══════════════════════════════════════════════════════════════════
+
+export interface PipeFoundationResult {
+  /** 基础宽度 mm */
+  baseWidth: number;
+  /** 基础厚度 mm */
+  baseThickness: number;
+  /** 碎石垫层厚度 mm */
+  gravelThickness: number;
+  /** 混凝土总量 m³ */
+  concreteVolumeM3: number;
+  /** 模板总面积 m² */
+  formAreaM2: number;
+  /** 碎石垫层体积 m³ */
+  gravelVolumeM3: number;
+}
+
+// ═══════════════════════════════════════════════════════════════════
 // 联合类型
 // ═══════════════════════════════════════════════════════════════════
 
@@ -154,7 +189,8 @@ export interface RebarMeshInfo {
   type: 'concrete' | 'vertBar' | 'horizBar' | 'coverBar' | 'baseBar'
     | 'cover' | 'steps' | 'pipeConnection'
     | 'sump' | 'stillingBasin'
-    | 'wallBar' | 'grate';
+    | 'wallBar' | 'grate'
+    | 'foundation' | 'gravel' | 'pipeSection';
   label: string;
   detail: string;
   setId?: string;

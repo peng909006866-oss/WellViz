@@ -45,6 +45,41 @@ export function gradeLabel(grade: string): string {
 }
 
 // ═══════════════════════════════════════════════════════════════════
+// 04S516 管道基础预设
+// ═══════════════════════════════════════════════════════════════════
+
+export const PIPE_FOUNDATION_PRESETS = {
+  standard: {
+    id: 'PF-DN600-120deg-50m',
+    pipeDiameter: 600,
+    beddingAngle: '120deg' as const,
+    pipeLength: 50,
+    concreteGrade: 'C25' as const,
+  },
+  small: {
+    id: 'PF-DN400-90deg-30m',
+    pipeDiameter: 400,
+    beddingAngle: '90deg' as const,
+    pipeLength: 30,
+    concreteGrade: 'C25' as const,
+  },
+  large: {
+    id: 'PF-DN1200-180deg-100m',
+    pipeDiameter: 1200,
+    beddingAngle: '180deg' as const,
+    pipeLength: 100,
+    concreteGrade: 'C30' as const,
+  },
+  flatBase: {
+    id: 'PF-DN800-flat-60m',
+    pipeDiameter: 800,
+    beddingAngle: 'flat' as const,
+    pipeLength: 60,
+    concreteGrade: 'C25' as const,
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════════
 // 02S515 排水检查井预设
 // ═══════════════════════════════════════════════════════════════════
 

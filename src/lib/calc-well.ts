@@ -8,7 +8,7 @@
  * 4. 混凝土量 = concretePerM×井深 + 底板 + 盖板
  * 5. 总重量 = Σ(各级钢筋长度×每米重量)
  *
- * 支持: 06MS201 (市政排水) + 02S515 (排水检查井)
+ * 支持: 06MS201 (市政排水) + 02S515 (排水检查井) + 04S516 (管道基础)
  */
 
 import type {
@@ -17,6 +17,8 @@ import type {
   SedimentationParams,
   DropManholeParams,
   GullyParams,
+  PipeFoundationParams,
+  PipeFoundationResult,
   WellCalcItem,
   WellCalcResult,
 } from './types';
@@ -26,6 +28,7 @@ import {
   lookupSedimentation,
   lookupDropManhole,
   lookupGully,
+  lookupPipeFoundation,
   parseRebarSpec,
   rebarWeightPerM,
   type WellTableRow,
@@ -409,6 +412,45 @@ export function calcGully(params: GullyParams): WellCalcResult {
     formAreaM2: row.formAreaPerUnit,
     wasteRate: 0.03,
     totalWithWaste: parseFloat((totalWeight * 1.03).toFixed(2)),
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// 04S516 管道基础计算
+// ═══════════════════════════════════════════════════════════════════
+
+/**
+ * 计算管道基础混凝土量、模板面积和碎石垫层
+ *
+ * 计算逻辑:
+ * 1. 根据管径+包角查表 → 基础宽度/厚度/每米混凝土量
+ * 2. 总混凝土量 = concretePerM × 管道长度
+ * 3. 模板面积 = formAreaPerM × 管道长度 (两侧)
+ * 4. 碎石垫层体积 = baseWidth × gravelThickness × 管道长度
+ */
+export function calcPipeFoundation(params: PipeFoundationParams): PipeFoundationResult {
+  const row = lookupPipeFoundation(params.pipeDiameter, params.beddingAngle);
+
+  const baseWidthM = row.baseWidth * M;
+  const baseThicknessM = row.baseThickness * M;
+  const gravelThicknessM = row.gravelThickness * M;
+
+  // 总混凝土量
+  const concreteVolumeM3 = parseFloat((row.concretePerM * params.pipeLength).toFixed(3));
+
+  // 模板面积 (两侧)
+  const formAreaM2 = parseFloat((row.formAreaPerM * params.pipeLength).toFixed(2));
+
+  // 碎石垫层体积: 宽度 × 厚度 × 长度
+  const gravelVolumeM3 = parseFloat((baseWidthM * gravelThicknessM * params.pipeLength).toFixed(3));
+
+  return {
+    baseWidth: row.baseWidth,
+    baseThickness: row.baseThickness,
+    gravelThickness: row.gravelThickness,
+    concreteVolumeM3,
+    formAreaM2,
+    gravelVolumeM3,
   };
 }
 

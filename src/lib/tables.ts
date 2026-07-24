@@ -765,3 +765,115 @@ export function getAvailableDrainageShapes(): DrainageManholeShape[] {
 export function rebarWeightPerM(diameter: number): number {
   return 0.00617 * diameter * diameter;
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// 04S516 混凝土管道基础
+// ═══════════════════════════════════════════════════════════════════
+
+/** 管座包角类型 */
+export type BeddingAngle = '90deg' | '120deg' | '180deg' | 'flat';
+
+export const BEDDING_ANGLE_LABELS: Record<BeddingAngle, string> = {
+  '90deg': '90° 管座',
+  '120deg': '120° 管座',
+  '180deg': '180° 管座',
+  flat: '平基 (无管座)',
+};
+
+/**
+ * 04S516 管道基础标准数据行
+ * 按管径索引，每个管径对应多种包角
+ */
+export interface PipeFoundationRow {
+  /** 管道公称直径 mm */
+  pipeDiameter: number;
+  /** 管座包角 */
+  beddingAngle: BeddingAngle;
+  /** 基础宽度 mm */
+  baseWidth: number;
+  /** 基础厚度 mm (C1) */
+  baseThickness: number;
+  /** 每米混凝土量 m³/m */
+  concretePerM: number;
+  /** 每米模板面积 m²/m (两侧) */
+  formAreaPerM: number;
+  /** 碎石垫层厚度 mm */
+  gravelThickness: number;
+}
+
+/**
+ * 04S516 混凝土管道基础标准数据表
+ *
+ * 查表逻辑: 管径 + 包角 → 基础宽度/厚度/混凝土量/模板面积
+ * 管径范围: DN300 - DN1500
+ * 包角类型: 90° / 120° / 180° 管座 + 平基
+ *
+ * 数据来源: 04S516《混凝土管道基础》国家标准图集
+ */
+export const PIPE_FOUNDATION_TABLE: Record<string, PipeFoundationRow> = {
+  // ── DN300 ──
+  '300-90deg':  { pipeDiameter: 300, beddingAngle: '90deg',  baseWidth: 880,  baseThickness: 150, concretePerM: 0.13, formAreaPerM: 0.30, gravelThickness: 100 },
+  '300-120deg': { pipeDiameter: 300, beddingAngle: '120deg', baseWidth: 880,  baseThickness: 180, concretePerM: 0.15, formAreaPerM: 0.36, gravelThickness: 100 },
+  '300-180deg': { pipeDiameter: 300, beddingAngle: '180deg', baseWidth: 880,  baseThickness: 250, concretePerM: 0.19, formAreaPerM: 0.50, gravelThickness: 100 },
+  '300-flat':   { pipeDiameter: 300, beddingAngle: 'flat',   baseWidth: 880,  baseThickness: 100, concretePerM: 0.09, formAreaPerM: 0.20, gravelThickness: 100 },
+  // ── DN400 ──
+  '400-90deg':  { pipeDiameter: 400, beddingAngle: '90deg',  baseWidth: 980,  baseThickness: 150, concretePerM: 0.15, formAreaPerM: 0.30, gravelThickness: 100 },
+  '400-120deg': { pipeDiameter: 400, beddingAngle: '120deg', baseWidth: 980,  baseThickness: 200, concretePerM: 0.19, formAreaPerM: 0.40, gravelThickness: 100 },
+  '400-180deg': { pipeDiameter: 400, beddingAngle: '180deg', baseWidth: 980,  baseThickness: 280, concretePerM: 0.25, formAreaPerM: 0.56, gravelThickness: 100 },
+  '400-flat':   { pipeDiameter: 400, beddingAngle: 'flat',   baseWidth: 980,  baseThickness: 100, concretePerM: 0.10, formAreaPerM: 0.20, gravelThickness: 100 },
+  // ── DN500 ──
+  '500-90deg':  { pipeDiameter: 500, beddingAngle: '90deg',  baseWidth: 1140, baseThickness: 180, concretePerM: 0.21, formAreaPerM: 0.36, gravelThickness: 100 },
+  '500-120deg': { pipeDiameter: 500, beddingAngle: '120deg', baseWidth: 1140, baseThickness: 230, concretePerM: 0.25, formAreaPerM: 0.46, gravelThickness: 100 },
+  '500-180deg': { pipeDiameter: 500, beddingAngle: '180deg', baseWidth: 1140, baseThickness: 330, concretePerM: 0.33, formAreaPerM: 0.66, gravelThickness: 100 },
+  '500-flat':   { pipeDiameter: 500, beddingAngle: 'flat',   baseWidth: 1140, baseThickness: 120, concretePerM: 0.14, formAreaPerM: 0.24, gravelThickness: 100 },
+  // ── DN600 ──
+  '600-90deg':  { pipeDiameter: 600, beddingAngle: '90deg',  baseWidth: 1240, baseThickness: 200, concretePerM: 0.25, formAreaPerM: 0.40, gravelThickness: 100 },
+  '600-120deg': { pipeDiameter: 600, beddingAngle: '120deg', baseWidth: 1240, baseThickness: 260, concretePerM: 0.32, formAreaPerM: 0.52, gravelThickness: 100 },
+  '600-180deg': { pipeDiameter: 600, beddingAngle: '180deg', baseWidth: 1240, baseThickness: 380, concretePerM: 0.42, formAreaPerM: 0.76, gravelThickness: 100 },
+  '600-flat':   { pipeDiameter: 600, beddingAngle: 'flat',   baseWidth: 1240, baseThickness: 120, concretePerM: 0.15, formAreaPerM: 0.24, gravelThickness: 100 },
+  // ── DN800 ──
+  '800-90deg':  { pipeDiameter: 800, beddingAngle: '90deg',  baseWidth: 1600, baseThickness: 250, concretePerM: 0.40, formAreaPerM: 0.50, gravelThickness: 150 },
+  '800-120deg': { pipeDiameter: 800, beddingAngle: '120deg', baseWidth: 1600, baseThickness: 330, concretePerM: 0.52, formAreaPerM: 0.66, gravelThickness: 150 },
+  '800-180deg': { pipeDiameter: 800, beddingAngle: '180deg', baseWidth: 1600, baseThickness: 470, concretePerM: 0.69, formAreaPerM: 0.94, gravelThickness: 150 },
+  '800-flat':   { pipeDiameter: 800, beddingAngle: 'flat',   baseWidth: 1600, baseThickness: 150, concretePerM: 0.24, formAreaPerM: 0.30, gravelThickness: 150 },
+  // ── DN1000 ──
+  '1000-90deg':  { pipeDiameter: 1000, beddingAngle: '90deg',  baseWidth: 1900, baseThickness: 300, concretePerM: 0.57, formAreaPerM: 0.60, gravelThickness: 150 },
+  '1000-120deg': { pipeDiameter: 1000, beddingAngle: '120deg', baseWidth: 1900, baseThickness: 400, concretePerM: 0.74, formAreaPerM: 0.80, gravelThickness: 150 },
+  '1000-180deg': { pipeDiameter: 1000, beddingAngle: '180deg', baseWidth: 1900, baseThickness: 560, concretePerM: 0.98, formAreaPerM: 1.12, gravelThickness: 150 },
+  '1000-flat':   { pipeDiameter: 1000, beddingAngle: 'flat',   baseWidth: 1900, baseThickness: 150, concretePerM: 0.29, formAreaPerM: 0.30, gravelThickness: 150 },
+  // ── DN1200 ──
+  '1200-90deg':  { pipeDiameter: 1200, beddingAngle: '90deg',  baseWidth: 2200, baseThickness: 350, concretePerM: 0.77, formAreaPerM: 0.70, gravelThickness: 200 },
+  '1200-120deg': { pipeDiameter: 1200, beddingAngle: '120deg', baseWidth: 2200, baseThickness: 470, concretePerM: 1.01, formAreaPerM: 0.94, gravelThickness: 200 },
+  '1200-180deg': { pipeDiameter: 1200, beddingAngle: '180deg', baseWidth: 2200, baseThickness: 670, concretePerM: 1.36, formAreaPerM: 1.34, gravelThickness: 200 },
+  '1200-flat':   { pipeDiameter: 1200, beddingAngle: 'flat',   baseWidth: 2200, baseThickness: 200, concretePerM: 0.44, formAreaPerM: 0.40, gravelThickness: 200 },
+  // ── DN1500 ──
+  '1500-90deg':  { pipeDiameter: 1500, beddingAngle: '90deg',  baseWidth: 2660, baseThickness: 420, concretePerM: 1.12, formAreaPerM: 0.84, gravelThickness: 200 },
+  '1500-120deg': { pipeDiameter: 1500, beddingAngle: '120deg', baseWidth: 2660, baseThickness: 560, concretePerM: 1.49, formAreaPerM: 1.12, gravelThickness: 200 },
+  '1500-180deg': { pipeDiameter: 1500, beddingAngle: '180deg', baseWidth: 2660, baseThickness: 800, concretePerM: 2.02, formAreaPerM: 1.60, gravelThickness: 200 },
+  '1500-flat':   { pipeDiameter: 1500, beddingAngle: 'flat',   baseWidth: 2660, baseThickness: 200, concretePerM: 0.53, formAreaPerM: 0.40, gravelThickness: 200 },
+};
+
+/** 可用的管径列表 */
+export const PIPE_FOUNDATION_DIAMETERS = [300, 400, 500, 600, 800, 1000, 1200, 1500];
+
+/** 所有包角选项 */
+export const PIPE_FOUNDATION_ANGLES: BeddingAngle[] = ['90deg', '120deg', '180deg', 'flat'];
+
+/**
+ * 根据管径+包角查管道基础表
+ */
+export function lookupPipeFoundation(pipeDiameter: number, beddingAngle: BeddingAngle): PipeFoundationRow {
+  const key = `${pipeDiameter}-${beddingAngle}`;
+  if (PIPE_FOUNDATION_TABLE[key]) {
+    return PIPE_FOUNDATION_TABLE[key];
+  }
+  // 找最近管径
+  const nearest = PIPE_FOUNDATION_DIAMETERS.reduce((prev, curr) =>
+    Math.abs(curr - pipeDiameter) < Math.abs(prev - pipeDiameter) ? curr : prev,
+  );
+  const fallbackKey = `${nearest}-${beddingAngle}`;
+  if (PIPE_FOUNDATION_TABLE[fallbackKey]) {
+    return PIPE_FOUNDATION_TABLE[fallbackKey];
+  }
+  throw new Error(`管道基础: 管径DN${pipeDiameter}+${beddingAngle} 无对应数据`);
+}

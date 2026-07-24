@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Box, Layers, ArrowDown, ArrowUpCircle, Menu, X, Sparkles } from 'lucide-react';
+import { Box, Layers, ArrowDown, ArrowUpCircle, GripHorizontal, Menu, X, Sparkles } from 'lucide-react';
 
 const NAV = [
   { href: '/manhole', label: '检查井', icon: Box },
   { href: '/sedimentation', label: '沉泥井', icon: Layers },
   { href: '/drop-manhole', label: '跌水井', icon: ArrowDown },
   { href: '/gully', label: '雨水口', icon: ArrowUpCircle },
+  { href: '/pipe-foundation', label: '管道基础', icon: GripHorizontal },
 ];
 
 export function Header() {

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Box, Layers, ArrowDown, ArrowUpCircle, Droplets, ChevronLeft, ChevronRight, PanelLeftOpen, Settings } from 'lucide-react';
+import { Box, Layers, ArrowDown, ArrowUpCircle, Droplets, ChevronLeft, ChevronRight, PanelLeftOpen, Settings, GripHorizontal } from 'lucide-react';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { ContactAuthorButton } from './ContactAuthor';
 
@@ -12,6 +12,7 @@ const NAV = [
   { href: '/sedimentation', label: '沉泥井', desc: '沉泥井', icon: Layers },
   { href: '/drop-manhole', label: '跌水井', desc: '跌水井', icon: ArrowDown },
   { href: '/gully', label: '雨水口', desc: '雨水口', icon: ArrowUpCircle },
+  { href: '/pipe-foundation', label: '管道基础', desc: '04S516 管基', icon: GripHorizontal },
 ];
 
 const SIDEBAR_DEFAULT_WIDTH = 208;

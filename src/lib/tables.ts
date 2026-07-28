@@ -137,22 +137,19 @@ export interface GullyExtra {
  * - concretePerM 仅计算筒体部分(不含底板和盖板)
  * - 数据基于标准图典型设计取用
  */
-export const MANHOLE_TABLE: Record<number, WellTableRow> = {
-{} // 数据已移除(06MS201-3圆形检查井), 请按标准图集自行填入
+export const MANHOLE_TABLE: Record<number, WellTableRow> = {}; // 数据已移除(06MS201-3圆形检查井), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 查表 — 沉泥井 (06MS201-2)
 // ═══════════════════════════════════════════════════════════════════
 
-export const SEDIMENTATION_TABLE: Record<number, { row: WellTableRow; extra: SedimentationExtra }> = {
-{} // 数据已移除(06MS201-3沉泥井), 请按标准图集自行填入
+export const SEDIMENTATION_TABLE: Record<number, { row: WellTableRow; extra: SedimentationExtra }> = {}; // 数据已移除(06MS201-3沉泥井), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 查表 — 跌水井 (06MS201-3)
 // ═══════════════════════════════════════════════════════════════════
 
-export const DROP_MANHOLE_TABLE: Record<number, { row: WellTableRow; extra: DropManholeExtra }> = {
-{} // 数据已移除(06MS201-3跌水井), 请按标准图集自行填入
+export const DROP_MANHOLE_TABLE: Record<number, { row: WellTableRow; extra: DropManholeExtra }> = {}; // 数据已移除(06MS201-3跌水井), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 查表 — 雨水口 (06MS201-4)
@@ -193,8 +190,7 @@ export interface GullyTableRow {
  * 06MS201-4 雨水口标准数据表
  * 偏沟式单箅/双箅/多箅雨水口
  */
-export const GULLY_TABLE: Record<string, GullyTableRow> = {
-{} // 数据已移除(06MS201-4雨水口), 请按标准图集自行填入
+export const GULLY_TABLE: Record<string, GullyTableRow> = {}; // 数据已移除(06MS201-4雨水口), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 查表引擎 — 公共查询接口
@@ -352,15 +348,13 @@ export interface DrainageManholeTableRow extends WellTableRow {
  *
  * key 为井径(mm)，每个井径对应多管径适用说明
  */
-export const DRAINAGE_MANHOLE_TABLE: Record<number, DrainageManholeTableRow> = {
-{} // 数据已移除(02S515排水检查井), 请按标准图集自行填入
+export const DRAINAGE_MANHOLE_TABLE: Record<number, DrainageManholeTableRow> = {}; // 数据已移除(02S515排水检查井), 请按标准图集自行填入
 
 /**
  * 管径→推荐井径映射表 (02S515 查表第一步)
  * 根据管道直径和井型确定最小井径
  */
-export const PIPE_TO_WELL_DIAMETER: Record<number, { circular: number; rectangular: number }> = {
-{} // 数据已移除(02S515管径井径对照), 请按标准图集自行填入
+export const PIPE_TO_WELL_DIAMETER: Record<number, { circular: number; rectangular: number }> = {}; // 数据已移除(02S515管径井径对照), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 02S515 查表引擎
@@ -481,8 +475,7 @@ export interface PipeFoundationRow {
  *
  * 数据来源: 04S516《混凝土管道基础》国家标准图集
  */
-export const PIPE_FOUNDATION_TABLE: Record<string, PipeFoundationRow> = {
-{} // 数据已移除(04S516混凝土管道基础), 请按标准图集自行填入
+export const PIPE_FOUNDATION_TABLE: Record<string, PipeFoundationRow> = {}; // 数据已移除(04S516混凝土管道基础), 请按标准图集自行填入
 
 /** 可用的管径列表 */
 export const PIPE_FOUNDATION_DIAMETERS = [300, 400, 500, 600, 800, 1000, 1200, 1500];

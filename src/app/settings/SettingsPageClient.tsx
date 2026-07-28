@@ -155,7 +155,7 @@ export function SettingsPageClient() {
           <p className="font-medium">新手先看</p>
           <p>1. API 是程序调用 AI 服务的接口，API Key 是调用权限钥匙。</p>
           <p>2. 只有 API Key 还不够，大多数服务商还需要账户有余额或已开通计费。</p>
-          <p>3. 充值不是在 RebarViz 里充，而是在各服务商官网后台充值或绑定支付方式。</p>
+          <p>3. 充值不是在 WellViz 里充，而是在各服务商官网后台充值或绑定支付方式。</p>
           <p>4. 建议先去服务商官网开通 API、充值、创建 Key，再回到这里粘贴并测试连接。</p>
           <p>
             详细说明见：

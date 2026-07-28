@@ -41,8 +41,8 @@ interface FavoriteItem<T = AnyParams> extends HistoryItem<T> {
 
 const MAX_HISTORY = 10;
 const STORAGE_KEYS = {
-  history: 'rebarviz_history',
-  favorites: 'rebarviz_favorites',
+  history: 'wellviz_history',
+  favorites: 'wellviz_favorites',
 };
 
 function generateId(): string {

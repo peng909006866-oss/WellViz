@@ -4,7 +4,7 @@
  * They are only sent to the respective AI provider's API endpoint.
  */
 
-const STORAGE_KEY = 'rebarviz_api_keys';
+const STORAGE_KEY = 'wellviz_api_keys';
 
 export interface ApiKeyStore {
   deepseek?: string;

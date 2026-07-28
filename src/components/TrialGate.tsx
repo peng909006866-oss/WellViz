@@ -78,7 +78,7 @@ export function TrialGate({ children }: { children: React.ReactNode }) {
                 <Box className="h-5 w-5" strokeWidth={2} />
               </div>
               <div>
-                <p className="text-xl font-semibold tracking-tight">RebarViz</p>
+                <p className="text-xl font-semibold tracking-tight">WellViz</p>
                 <p className="text-sm text-slate-400">钢筋平法识图 3D 可视化</p>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'API 配置帮助 | RebarViz',
+  title: 'API 配置帮助 | WellViz',
   description: '给第一次接触 AI 接口的用户准备的 API、API Key、充值和计费配置说明。',
 };
 
@@ -37,7 +37,7 @@ export default function ApiHelpPage() {
     <main className="max-w-3xl mx-auto px-4 py-8 md:py-10">
       <article className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
         <div className="px-6 py-6 md:px-8 md:py-8 border-b border-gray-100 bg-gradient-to-br from-blue-50 via-cyan-50 to-white">
-          <p className="text-xs font-semibold tracking-[0.18em] text-blue-700 uppercase">RebarViz Help</p>
+          <p className="text-xs font-semibold tracking-[0.18em] text-blue-700 uppercase">WellViz Help</p>
           <h1 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900">AI 助手 API 配置帮助</h1>
           <p className="mt-3 text-sm md:text-base text-gray-600 leading-7">
             这份说明是给第一次接触 AI 接口的用户准备的。重点只讲 3 件事：
@@ -49,7 +49,7 @@ export default function ApiHelpPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-gray-900">1. API 是什么</h2>
             <p className="text-sm text-gray-700 leading-7">
-              API 可以理解成“程序调用 AI 服务的入口”。RebarViz 里的 AI 助手不是直接内置在网页里的，
+              API 可以理解成“程序调用 AI 服务的入口”。WellViz 里的 AI 助手不是直接内置在网页里的，
               它需要去调用第三方 AI 服务商的模型。
             </p>
             <p className="text-sm text-gray-700 leading-7">
@@ -60,7 +60,7 @@ export default function ApiHelpPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-gray-900">2. API Key 是什么</h2>
             <p className="text-sm text-gray-700 leading-7">
-              API Key 就像一把“调用权限钥匙”。你在服务商官网创建 Key 后，把它填到 RebarViz 的设置页，
+              API Key 就像一把“调用权限钥匙”。你在服务商官网创建 Key 后，把它填到 WellViz 的设置页，
               项目才能代表你去调用对应模型。
             </p>
             <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800 leading-7">
@@ -82,10 +82,10 @@ export default function ApiHelpPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-gray-900">4. 充值在哪里充</h2>
             <p className="text-sm text-gray-700 leading-7">
-              充值不是在 RebarViz 里充，而是在各 AI 服务商官网后台充值，或者绑定支付方式并开通 billing。
+              充值不是在 WellViz 里充，而是在各 AI 服务商官网后台充值，或者绑定支付方式并开通 billing。
             </p>
             <p className="text-sm text-gray-700 leading-7">
-              一般正确流程是：注册账号、开通 API、充值或绑定支付方式、创建 API Key、回到 RebarViz 粘贴并测试。
+              一般正确流程是：注册账号、开通 API、充值或绑定支付方式、创建 API Key、回到 WellViz 粘贴并测试。
             </p>
           </section>
 
@@ -108,7 +108,7 @@ export default function ApiHelpPage() {
               <li>去服务商官网注册开发者账号。</li>
               <li>确认账号已经有余额，或者已经开通计费。</li>
               <li>创建 API Key。</li>
-              <li>回到 RebarViz 设置页粘贴 Key。</li>
+              <li>回到 WellViz 设置页粘贴 Key。</li>
               <li>点击“测试连接”。</li>
               <li>测试通过后再开始使用 AI 助手。</li>
             </ol>
@@ -126,7 +126,7 @@ export default function ApiHelpPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-semibold text-gray-900">8. 安全提醒</h2>
             <p className="text-sm text-gray-700 leading-7">
-              不要把 API Key 发给别人，也不要把 API Key 提交到 Git 仓库里。当前 RebarViz 的设计是把 Key
+              不要把 API Key 发给别人，也不要把 API Key 提交到 Git 仓库里。当前 WellViz 的设计是把 Key
               保存在浏览器本地，不上传到服务器，但你仍然应该把它当成密码一样保管。
             </p>
           </section>

@@ -14,7 +14,7 @@ export interface TutorialStep {
 
 const BEAM_TUTORIAL_STEPS: TutorialStep[] = [
   {
-    title: '欢迎使用 RebarViz！',
+    title: '欢迎使用 WellViz！',
     content: '这是一个 3D 钢筋可视化工具，帮助你理解 22G101 平法标注。让我们花 1 分钟快速了解一下吧！',
     position: 'center',
     icon: <Lightbulb className="w-6 h-6" />,
@@ -68,7 +68,7 @@ const BEAM_TUTORIAL_STEPS: TutorialStep[] = [
   },
 ];
 
-const STORAGE_KEY = 'rebarviz_tutorial_completed';
+const STORAGE_KEY = 'wellviz_tutorial_completed';
 
 interface TutorialProps {
   componentType?: 'manhole' | 'sedimentation' | 'dropManhole' | 'gully';

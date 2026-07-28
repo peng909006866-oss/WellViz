@@ -138,226 +138,21 @@ export interface GullyExtra {
  * - 数据基于标准图典型设计取用
  */
 export const MANHOLE_TABLE: Record<number, WellTableRow> = {
-  700: {
-    diameter: 700,
-    wallThickness: 200,
-    baseThickness: 200,
-    coverThickness: 120,
-    cover: 35,
-    vertBar: 'C12@200',
-    horizBar: 'C10@200',
-    coverBar: 'C10@150(single)',
-    baseBar: 'C12@200(single)',
-    concretePerM: 0.56,
-    formAreaPerM: 6.91,    // π×(0.7+2×0.2)×1 + π×0.7×1 = π×1.1 + π×0.7 ≈ 3.46+2.20
-    steelPerM: 18.5,
-    applicableDepth: [1.0, 4.0],
-    coverTypes: ['lightCastIron', 'heavyCastIron'],
-    baseConcrete: 0.15,
-  },
-  800: {
-    diameter: 800,
-    wallThickness: 200,
-    baseThickness: 200,
-    coverThickness: 120,
-    cover: 35,
-    vertBar: 'C12@200',
-    horizBar: 'C10@200',
-    coverBar: 'C10@150(single)',
-    baseBar: 'C12@200(single)',
-    concretePerM: 0.63,
-    formAreaPerM: 7.54,
-    steelPerM: 21.0,
-    applicableDepth: [1.0, 4.5],
-    coverTypes: ['lightCastIron', 'heavyCastIron'],
-    baseConcrete: 0.18,
-  },
-  1000: {
-    diameter: 1000,
-    wallThickness: 250,
-    baseThickness: 250,
-    coverThickness: 150,
-    cover: 40,
-    vertBar: 'C14@200',
-    horizBar: 'C12@200',
-    coverBar: 'C12@150(double)',
-    baseBar: 'C12@200(double)',
-    concretePerM: 0.98,
-    formAreaPerM: 9.11,
-    steelPerM: 32.0,
-    applicableDepth: [1.0, 6.0],
-    coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-    baseConcrete: 0.35,
-  },
-  1200: {
-    diameter: 1200,
-    wallThickness: 250,
-    baseThickness: 250,
-    coverThickness: 180,
-    cover: 40,
-    vertBar: 'C14@200',
-    horizBar: 'C12@200',
-    coverBar: 'C14@150(double)',
-    baseBar: 'C14@200(double)',
-    concretePerM: 1.14,
-    formAreaPerM: 10.68,
-    steelPerM: 38.5,
-    applicableDepth: [1.5, 6.0],
-    coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-    baseConcrete: 0.48,
-  },
-  1500: {
-    diameter: 1500,
-    wallThickness: 300,
-    baseThickness: 300,
-    coverThickness: 200,
-    cover: 40,
-    vertBar: 'C16@200',
-    horizBar: 'C14@200',
-    coverBar: 'C16@150(double)',
-    baseBar: 'C16@200(double)',
-    concretePerM: 1.70,
-    formAreaPerM: 13.19,
-    steelPerM: 52.0,
-    applicableDepth: [1.5, 6.0],
-    coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-    baseConcrete: 0.85,
-  },
-};
+{} // 数据已移除(06MS201-3圆形检查井), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 查表 — 沉泥井 (06MS201-2)
 // ═══════════════════════════════════════════════════════════════════
 
 export const SEDIMENTATION_TABLE: Record<number, { row: WellTableRow; extra: SedimentationExtra }> = {
-  1000: {
-    row: {
-      diameter: 1000,
-      wallThickness: 250,
-      baseThickness: 300,
-      coverThickness: 150,
-      cover: 40,
-      vertBar: 'C14@200',
-      horizBar: 'C12@200',
-      coverBar: 'C12@150(double)',
-      baseBar: 'C14@200(double)',
-      concretePerM: 0.98,
-      formAreaPerM: 9.11,
-      steelPerM: 34.0,
-      applicableDepth: [2.0, 6.0],
-      coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-      baseConcrete: 0.40,
-    },
-    extra: { sumpDepth: 500, sumpBaseThickness: 300 },
-  },
-  1200: {
-    row: {
-      diameter: 1200,
-      wallThickness: 250,
-      baseThickness: 300,
-      coverThickness: 180,
-      cover: 40,
-      vertBar: 'C14@200',
-      horizBar: 'C12@200',
-      coverBar: 'C14@150(double)',
-      baseBar: 'C14@200(double)',
-      concretePerM: 1.14,
-      formAreaPerM: 10.68,
-      steelPerM: 40.0,
-      applicableDepth: [2.0, 6.0],
-      coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-      baseConcrete: 0.55,
-    },
-    extra: { sumpDepth: 600, sumpBaseThickness: 300 },
-  },
-  1500: {
-    row: {
-      diameter: 1500,
-      wallThickness: 300,
-      baseThickness: 350,
-      coverThickness: 200,
-      cover: 40,
-      vertBar: 'C16@200',
-      horizBar: 'C14@200',
-      coverBar: 'C16@150(double)',
-      baseBar: 'C16@200(double)',
-      concretePerM: 1.70,
-      formAreaPerM: 13.19,
-      steelPerM: 55.0,
-      applicableDepth: [2.5, 6.0],
-      coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-      baseConcrete: 1.0,
-    },
-    extra: { sumpDepth: 800, sumpBaseThickness: 350 },
-  },
-};
+{} // 数据已移除(06MS201-3沉泥井), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 查表 — 跌水井 (06MS201-3)
 // ═══════════════════════════════════════════════════════════════════
 
 export const DROP_MANHOLE_TABLE: Record<number, { row: WellTableRow; extra: DropManholeExtra }> = {
-  1000: {
-    row: {
-      diameter: 1000,
-      wallThickness: 300,
-      baseThickness: 300,
-      coverThickness: 150,
-      cover: 40,
-      vertBar: 'C16@200',
-      horizBar: 'C14@150',
-      coverBar: 'C14@150(double)',
-      baseBar: 'C14@200(double)',
-      concretePerM: 1.22,
-      formAreaPerM: 9.42,
-      steelPerM: 42.0,
-      applicableDepth: [3.0, 8.0],
-      coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-      baseConcrete: 0.55,
-    },
-    extra: { maxDropHeight: 2500, stillingBasinDepth: 500, stillingBasinLength: 1200 },
-  },
-  1200: {
-    row: {
-      diameter: 1200,
-      wallThickness: 300,
-      baseThickness: 350,
-      coverThickness: 180,
-      cover: 40,
-      vertBar: 'C16@200',
-      horizBar: 'C14@150',
-      coverBar: 'C14@150(double)',
-      baseBar: 'C14@200(double)',
-      concretePerM: 1.41,
-      formAreaPerM: 10.99,
-      steelPerM: 50.0,
-      applicableDepth: [3.0, 8.0],
-      coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-      baseConcrete: 0.75,
-    },
-    extra: { maxDropHeight: 3500, stillingBasinDepth: 600, stillingBasinLength: 1500 },
-  },
-  1500: {
-    row: {
-      diameter: 1500,
-      wallThickness: 350,
-      baseThickness: 400,
-      coverThickness: 200,
-      cover: 40,
-      vertBar: 'C18@200',
-      horizBar: 'C16@150',
-      coverBar: 'C16@150(double)',
-      baseBar: 'C16@200(double)',
-      concretePerM: 2.03,
-      formAreaPerM: 13.82,
-      steelPerM: 65.0,
-      applicableDepth: [4.0, 8.0],
-      coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-      baseConcrete: 1.2,
-    },
-    extra: { maxDropHeight: 5000, stillingBasinDepth: 800, stillingBasinLength: 2000 },
-  },
-};
+{} // 数据已移除(06MS201-3跌水井), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 查表 — 雨水口 (06MS201-4)
@@ -399,39 +194,7 @@ export interface GullyTableRow {
  * 偏沟式单箅/双箅/多箅雨水口
  */
 export const GULLY_TABLE: Record<string, GullyTableRow> = {
-  '680×380': {
-    size: '680×380',
-    bodyLength: 680,
-    bodyWidth: 380,
-    bodyDepth: 1000,
-    wallThickness: 120,
-    baseThickness: 150,
-    cover: 30,
-    wallBar: 'C10@200',
-    baseBar: 'C10@200(single)',
-    pipeDiameter: [200, 400],
-    concretePerUnit: 0.35,
-    formAreaPerUnit: 3.2,
-    steelPerUnit: 12.0,
-    grateTypes: ['single'],
-  },
-  '750×450': {
-    size: '750×450',
-    bodyLength: 750,
-    bodyWidth: 450,
-    bodyDepth: 1200,
-    wallThickness: 150,
-    baseThickness: 150,
-    cover: 30,
-    wallBar: 'C12@200',
-    baseBar: 'C12@200(single)',
-    pipeDiameter: [200, 500],
-    concretePerUnit: 0.50,
-    formAreaPerUnit: 4.1,
-    steelPerUnit: 18.0,
-    grateTypes: ['double', 'triple'],
-  },
-};
+{} // 数据已移除(06MS201-4雨水口), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 查表引擎 — 公共查询接口
@@ -590,106 +353,14 @@ export interface DrainageManholeTableRow extends WellTableRow {
  * key 为井径(mm)，每个井径对应多管径适用说明
  */
 export const DRAINAGE_MANHOLE_TABLE: Record<number, DrainageManholeTableRow> = {
-  // ── Φ1000 圆形排水检查井 — 适用管径 DN300-DN600 ──
-  1000: {
-    diameter: 1000,
-    wallThickness: 240,
-    baseThickness: 250,
-    coverThickness: 150,
-    cover: 35,
-    vertBar: 'C14@200',
-    horizBar: 'C12@200',
-    coverBar: 'C12@150(double)',
-    baseBar: 'C14@200(double)',
-    concretePerM: 0.94,
-    formAreaPerM: 9.05,
-    steelPerM: 33.0,
-    applicableDepth: [1.0, 5.0],
-    coverTypes: ['lightCastIron', 'heavyCastIron'],
-    baseConcrete: 0.38,
-    pipeDiameters: [300, 400, 500, 600],
-    shape: 'circular',
-    channelType: 'halfPipe',
-  },
-  // ── Φ1200 圆形排水检查井 — 适用管径 DN600-DN800 ──
-  1200: {
-    diameter: 1200,
-    wallThickness: 240,
-    baseThickness: 250,
-    coverThickness: 180,
-    cover: 35,
-    vertBar: 'C14@200',
-    horizBar: 'C12@200',
-    coverBar: 'C14@150(double)',
-    baseBar: 'C14@200(double)',
-    concretePerM: 1.09,
-    formAreaPerM: 10.56,
-    steelPerM: 39.0,
-    applicableDepth: [1.5, 6.0],
-    coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-    baseConcrete: 0.50,
-    pipeDiameters: [600, 800],
-    shape: 'circular',
-    channelType: 'halfPipe',
-  },
-  // ── Φ1500 圆形排水检查井 — 适用管径 DN800-DN1000 ──
-  1500: {
-    diameter: 1500,
-    wallThickness: 300,
-    baseThickness: 300,
-    coverThickness: 200,
-    cover: 40,
-    vertBar: 'C16@200',
-    horizBar: 'C14@200',
-    coverBar: 'C16@150(double)',
-    baseBar: 'C16@200(double)',
-    concretePerM: 1.70,
-    formAreaPerM: 13.19,
-    steelPerM: 54.0,
-    applicableDepth: [2.0, 6.0],
-    coverTypes: ['heavyCastIron', 'reinforcedConcrete'],
-    baseConcrete: 0.85,
-    pipeDiameters: [800, 1000],
-    shape: 'circular',
-    channelType: 'halfPipe',
-  },
-  // ── 矩形 1100×1100 排水检查井 — 适用管径 DN400-DN600 ──
-  1100: {
-    diameter: 1100,
-    wallThickness: 240,
-    baseThickness: 250,
-    coverThickness: 150,
-    cover: 35,
-    vertBar: 'C14@200',
-    horizBar: 'C12@200',
-    coverBar: 'C12@150(double)',
-    baseBar: 'C14@200(double)',
-    concretePerM: 0.99,
-    formAreaPerM: 9.50,
-    steelPerM: 35.0,
-    applicableDepth: [1.0, 5.0],
-    coverTypes: ['lightCastIron', 'heavyCastIron'],
-    baseConcrete: 0.42,
-    pipeDiameters: [400, 500, 600],
-    shape: 'rectangular',
-    channelType: 'halfPipe',
-    chamberLength: 1100,
-    chamberWidth: 1100,
-  },
-};
+{} // 数据已移除(02S515排水检查井), 请按标准图集自行填入
 
 /**
  * 管径→推荐井径映射表 (02S515 查表第一步)
  * 根据管道直径和井型确定最小井径
  */
 export const PIPE_TO_WELL_DIAMETER: Record<number, { circular: number; rectangular: number }> = {
-  300: { circular: 1000, rectangular: 1000 },
-  400: { circular: 1000, rectangular: 1100 },
-  500: { circular: 1000, rectangular: 1100 },
-  600: { circular: 1000, rectangular: 1100 },
-  800: { circular: 1200, rectangular: 1200 },
-  1000: { circular: 1500, rectangular: 1500 },
-};
+{} // 数据已移除(02S515管径井径对照), 请按标准图集自行填入
 
 // ═══════════════════════════════════════════════════════════════════
 // 02S515 查表引擎
@@ -811,47 +482,7 @@ export interface PipeFoundationRow {
  * 数据来源: 04S516《混凝土管道基础》国家标准图集
  */
 export const PIPE_FOUNDATION_TABLE: Record<string, PipeFoundationRow> = {
-  // ── DN300 ──
-  '300-90deg':  { pipeDiameter: 300, beddingAngle: '90deg',  baseWidth: 880,  baseThickness: 150, concretePerM: 0.13, formAreaPerM: 0.30, gravelThickness: 100 },
-  '300-120deg': { pipeDiameter: 300, beddingAngle: '120deg', baseWidth: 880,  baseThickness: 180, concretePerM: 0.15, formAreaPerM: 0.36, gravelThickness: 100 },
-  '300-180deg': { pipeDiameter: 300, beddingAngle: '180deg', baseWidth: 880,  baseThickness: 250, concretePerM: 0.19, formAreaPerM: 0.50, gravelThickness: 100 },
-  '300-flat':   { pipeDiameter: 300, beddingAngle: 'flat',   baseWidth: 880,  baseThickness: 100, concretePerM: 0.09, formAreaPerM: 0.20, gravelThickness: 100 },
-  // ── DN400 ──
-  '400-90deg':  { pipeDiameter: 400, beddingAngle: '90deg',  baseWidth: 980,  baseThickness: 150, concretePerM: 0.15, formAreaPerM: 0.30, gravelThickness: 100 },
-  '400-120deg': { pipeDiameter: 400, beddingAngle: '120deg', baseWidth: 980,  baseThickness: 200, concretePerM: 0.19, formAreaPerM: 0.40, gravelThickness: 100 },
-  '400-180deg': { pipeDiameter: 400, beddingAngle: '180deg', baseWidth: 980,  baseThickness: 280, concretePerM: 0.25, formAreaPerM: 0.56, gravelThickness: 100 },
-  '400-flat':   { pipeDiameter: 400, beddingAngle: 'flat',   baseWidth: 980,  baseThickness: 100, concretePerM: 0.10, formAreaPerM: 0.20, gravelThickness: 100 },
-  // ── DN500 ──
-  '500-90deg':  { pipeDiameter: 500, beddingAngle: '90deg',  baseWidth: 1140, baseThickness: 180, concretePerM: 0.21, formAreaPerM: 0.36, gravelThickness: 100 },
-  '500-120deg': { pipeDiameter: 500, beddingAngle: '120deg', baseWidth: 1140, baseThickness: 230, concretePerM: 0.25, formAreaPerM: 0.46, gravelThickness: 100 },
-  '500-180deg': { pipeDiameter: 500, beddingAngle: '180deg', baseWidth: 1140, baseThickness: 330, concretePerM: 0.33, formAreaPerM: 0.66, gravelThickness: 100 },
-  '500-flat':   { pipeDiameter: 500, beddingAngle: 'flat',   baseWidth: 1140, baseThickness: 120, concretePerM: 0.14, formAreaPerM: 0.24, gravelThickness: 100 },
-  // ── DN600 ──
-  '600-90deg':  { pipeDiameter: 600, beddingAngle: '90deg',  baseWidth: 1240, baseThickness: 200, concretePerM: 0.25, formAreaPerM: 0.40, gravelThickness: 100 },
-  '600-120deg': { pipeDiameter: 600, beddingAngle: '120deg', baseWidth: 1240, baseThickness: 260, concretePerM: 0.32, formAreaPerM: 0.52, gravelThickness: 100 },
-  '600-180deg': { pipeDiameter: 600, beddingAngle: '180deg', baseWidth: 1240, baseThickness: 380, concretePerM: 0.42, formAreaPerM: 0.76, gravelThickness: 100 },
-  '600-flat':   { pipeDiameter: 600, beddingAngle: 'flat',   baseWidth: 1240, baseThickness: 120, concretePerM: 0.15, formAreaPerM: 0.24, gravelThickness: 100 },
-  // ── DN800 ──
-  '800-90deg':  { pipeDiameter: 800, beddingAngle: '90deg',  baseWidth: 1600, baseThickness: 250, concretePerM: 0.40, formAreaPerM: 0.50, gravelThickness: 150 },
-  '800-120deg': { pipeDiameter: 800, beddingAngle: '120deg', baseWidth: 1600, baseThickness: 330, concretePerM: 0.52, formAreaPerM: 0.66, gravelThickness: 150 },
-  '800-180deg': { pipeDiameter: 800, beddingAngle: '180deg', baseWidth: 1600, baseThickness: 470, concretePerM: 0.69, formAreaPerM: 0.94, gravelThickness: 150 },
-  '800-flat':   { pipeDiameter: 800, beddingAngle: 'flat',   baseWidth: 1600, baseThickness: 150, concretePerM: 0.24, formAreaPerM: 0.30, gravelThickness: 150 },
-  // ── DN1000 ──
-  '1000-90deg':  { pipeDiameter: 1000, beddingAngle: '90deg',  baseWidth: 1900, baseThickness: 300, concretePerM: 0.57, formAreaPerM: 0.60, gravelThickness: 150 },
-  '1000-120deg': { pipeDiameter: 1000, beddingAngle: '120deg', baseWidth: 1900, baseThickness: 400, concretePerM: 0.74, formAreaPerM: 0.80, gravelThickness: 150 },
-  '1000-180deg': { pipeDiameter: 1000, beddingAngle: '180deg', baseWidth: 1900, baseThickness: 560, concretePerM: 0.98, formAreaPerM: 1.12, gravelThickness: 150 },
-  '1000-flat':   { pipeDiameter: 1000, beddingAngle: 'flat',   baseWidth: 1900, baseThickness: 150, concretePerM: 0.29, formAreaPerM: 0.30, gravelThickness: 150 },
-  // ── DN1200 ──
-  '1200-90deg':  { pipeDiameter: 1200, beddingAngle: '90deg',  baseWidth: 2200, baseThickness: 350, concretePerM: 0.77, formAreaPerM: 0.70, gravelThickness: 200 },
-  '1200-120deg': { pipeDiameter: 1200, beddingAngle: '120deg', baseWidth: 2200, baseThickness: 470, concretePerM: 1.01, formAreaPerM: 0.94, gravelThickness: 200 },
-  '1200-180deg': { pipeDiameter: 1200, beddingAngle: '180deg', baseWidth: 2200, baseThickness: 670, concretePerM: 1.36, formAreaPerM: 1.34, gravelThickness: 200 },
-  '1200-flat':   { pipeDiameter: 1200, beddingAngle: 'flat',   baseWidth: 2200, baseThickness: 200, concretePerM: 0.44, formAreaPerM: 0.40, gravelThickness: 200 },
-  // ── DN1500 ──
-  '1500-90deg':  { pipeDiameter: 1500, beddingAngle: '90deg',  baseWidth: 2660, baseThickness: 420, concretePerM: 1.12, formAreaPerM: 0.84, gravelThickness: 200 },
-  '1500-120deg': { pipeDiameter: 1500, beddingAngle: '120deg', baseWidth: 2660, baseThickness: 560, concretePerM: 1.49, formAreaPerM: 1.12, gravelThickness: 200 },
-  '1500-180deg': { pipeDiameter: 1500, beddingAngle: '180deg', baseWidth: 2660, baseThickness: 800, concretePerM: 2.02, formAreaPerM: 1.60, gravelThickness: 200 },
-  '1500-flat':   { pipeDiameter: 1500, beddingAngle: 'flat',   baseWidth: 2660, baseThickness: 200, concretePerM: 0.53, formAreaPerM: 0.40, gravelThickness: 200 },
-};
+{} // 数据已移除(04S516混凝土管道基础), 请按标准图集自行填入
 
 /** 可用的管径列表 */
 export const PIPE_FOUNDATION_DIAMETERS = [300, 400, 500, 600, 800, 1000, 1200, 1500];

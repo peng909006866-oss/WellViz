@@ -207,7 +207,7 @@ export function lookupManhole(diameter: number): { row: WellTableRow; warning?: 
   // 找最近的标准井径
   const available = Object.keys(MANHOLE_TABLE).map(Number).sort((a, b) => a - b);
   if (available.length === 0) {
-    throw new Error('检查井数据表为空');
+    return { row: {} as WellTableRow, warning: '数据表为空，请按标准图集填入数据后重试' };
   }
   const nearest = available.reduce((prev, curr) =>
     Math.abs(curr - diameter) < Math.abs(prev - diameter) ? curr : prev
@@ -227,7 +227,7 @@ export function lookupSedimentation(diameter: number): { row: WellTableRow; extr
   }
   const available = Object.keys(SEDIMENTATION_TABLE).map(Number).sort((a, b) => a - b);
   if (available.length === 0) {
-    throw new Error('沉泥井数据表为空');
+    return { row: {} as WellTableRow, extra: {} as SedimentationExtra, warning: '数据表为空，请按标准图集填入数据后重试' };
   }
   const nearest = available.reduce((prev, curr) =>
     Math.abs(curr - diameter) < Math.abs(prev - diameter) ? curr : prev
@@ -247,7 +247,7 @@ export function lookupDropManhole(diameter: number): { row: WellTableRow; extra:
   }
   const available = Object.keys(DROP_MANHOLE_TABLE).map(Number).sort((a, b) => a - b);
   if (available.length === 0) {
-    throw new Error('跌水井数据表为空');
+    return { row: {} as WellTableRow, extra: {} as DropManholeExtra, warning: '数据表为空，请按标准图集填入数据后重试' };
   }
   const nearest = available.reduce((prev, curr) =>
     Math.abs(curr - diameter) < Math.abs(prev - diameter) ? curr : prev
@@ -375,7 +375,7 @@ export function lookupDrainageManhole(
   const mapping = PIPE_TO_WELL_DIAMETER[pipeDia];
   if (!mapping) {
     const available = Object.keys(PIPE_TO_WELL_DIAMETER).map(Number).sort((a, b) => a - b);
-    if (available.length === 0) throw new Error('排水检查井管径映射表为空');
+    if (available.length === 0) return { row: {} as DrainageManholeTableRow, warning: '数据表为空，请按标准图集填入数据后重试' };
     const nearest = available.reduce((prev, curr) =>
       Math.abs(curr - pipeDia) < Math.abs(prev - pipeDia) ? curr : prev,
     );
@@ -499,5 +499,7 @@ export function lookupPipeFoundation(pipeDiameter: number, beddingAngle: Bedding
   if (PIPE_FOUNDATION_TABLE[fallbackKey]) {
     return PIPE_FOUNDATION_TABLE[fallbackKey];
   }
-  throw new Error(`管道基础: 管径DN${pipeDiameter}+${beddingAngle} 无对应数据`);
+  if (Object.keys(PIPE_FOUNDATION_TABLE).length === 0) {
+    return {} as PipeFoundationRow;
+  }
 }

@@ -50,7 +50,8 @@ npm run dev
 
 ## 📄 License
 
-MIT — 框架代码。标准图数据版权归中国建筑标准设计研究院所有。
+[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — 继承自 [RebarViz](https://github.com/BruceLee1024/RebarViz)。
+署名—非商业性使用。标准图数据版权归中国建筑标准设计研究院所有。
 
 ## 🙏 致谢
 

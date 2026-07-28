@@ -124,17 +124,19 @@ function calcWellRebarCore(input: CalcWellRebarInput): WellCalcItem[] {
 
   // ── 盖板配筋 ──
   const coverR = parseRebarSpec(coverBar);
+  const coverIsDouble = coverBar.includes('(double)') || coverBar.includes('双层');
   const coverOuterDia = diameter + 2 * wallThickness;
   const coverRebarCount = Math.ceil((coverOuterDia * M * Math.PI * 1000) / coverR.spacing);
   const coverSingleLen = coverOuterDia * M; // m (每根跨越井口直径)
-  const coverWeight = coverSingleLen * coverRebarCount * rebarWeightPerM(coverR.diameter);
+  const coverLayers = coverIsDouble ? 2 : 1;
+  const coverWeight = coverSingleLen * coverRebarCount * rebarWeightPerM(coverR.diameter) * coverLayers;
 
   items.push({
     name: '盖板筋',
     spec: coverBar,
     grade: coverR.grade,
     diameter: coverR.diameter,
-    count: coverRebarCount,
+    count: coverRebarCount * coverLayers,
     lengthM: parseFloat(coverSingleLen.toFixed(3)),
     weightKg: parseFloat(coverWeight.toFixed(2)),
     group: 'coverBar',
@@ -142,17 +144,19 @@ function calcWellRebarCore(input: CalcWellRebarInput): WellCalcItem[] {
 
   // ── 底板配筋 ──
   const baseR = parseRebarSpec(baseBar);
+  const baseIsDouble = baseBar.includes('(double)') || baseBar.includes('双层');
   const baseOuterDia = diameter + 2 * wallThickness;
   const baseRebarCount = Math.ceil((baseOuterDia * M * Math.PI * 1000) / baseR.spacing);
   const baseSingleLen = baseOuterDia * M;
-  const baseWeight = baseSingleLen * baseRebarCount * rebarWeightPerM(baseR.diameter);
+  const baseLayers = baseIsDouble ? 2 : 1;
+  const baseWeight = baseSingleLen * baseRebarCount * rebarWeightPerM(baseR.diameter) * baseLayers;
 
   items.push({
     name: '底板筋',
     spec: baseBar,
     grade: baseR.grade,
     diameter: baseR.diameter,
-    count: baseRebarCount,
+    count: baseRebarCount * baseLayers,
     lengthM: parseFloat(baseSingleLen.toFixed(3)),
     weightKg: parseFloat(baseWeight.toFixed(2)),
     group: 'baseBar',

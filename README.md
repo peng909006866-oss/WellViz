@@ -43,10 +43,10 @@ npm run dev
 
 ## 🏗️ 技术栈
 
-- Next.js 16 + React 19
-- Three.js (React Three Fiber)
-- TypeScript
+- Next.js 16 + React 19 + Three.js (React Three Fiber) + TypeScript
 - 多模型 AI 支持 (DeepSeek / OpenAI / SiliconFlow / Qwen)
+- **底座框架基于 [RebarViz](https://github.com/BruceLee1024/RebarViz)** by BruceLee1024
+- 对 RebarViz 的 3D 组件、AI 引擎、UI 框架做了市政排水领域的适配改造
 
 ## 📄 License
 
@@ -54,5 +54,5 @@ MIT — 框架代码。标准图数据版权归中国建筑标准设计研究院
 
 ## 🙏 致谢
 
-- 3D 底座灵感来自 [RebarViz](https://github.com/BruceLee1024/RebarViz) by BruceLee1024
+- 底座 [RebarViz](https://github.com/BruceLee1024/RebarViz) by [BruceLee1024](https://github.com/BruceLee1024) — 提供了优秀的 3D 钢筋可视化框架
 - 标准图集：中国建筑标准设计研究院 (06MS201 / 02S515 / 04S516)

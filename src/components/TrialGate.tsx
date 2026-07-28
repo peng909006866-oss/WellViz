@@ -131,7 +131,7 @@ export function TrialGate({ children }: { children: React.ReactNode }) {
                 <KeyRound className="h-5 w-5" strokeWidth={2} />
               </div>
               <div>
-                <h2 className="text-base font-semibold text-white">试用激活</h2>
+                <h2 className="text-base font-semibold text-white">WellViz 试用激活</h2>
                 <p className="text-xs text-slate-400">扫码获取试用码后输入</p>
               </div>
             </div>

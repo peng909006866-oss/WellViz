@@ -151,7 +151,7 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 
 const FEATURES = [
   { icon: RotateCcw, title: '3D 交互查看', desc: '旋转、缩放、平移，从任意角度观察检查井构造', color: 'from-teal-500 to-cyan-400' },
-  { icon: MousePointerClick, title: '点击识别', desc: '点击任意钢筋或构件，即时显示详细信息', color: 'from-sky-500 to-blue-400' },
+  { icon: MousePointerClick, title: '点击识别', desc: '点击任意构件，即时显示详细参数与工程量', color: 'from-sky-500 to-blue-400' },
   { icon: BookOpen, title: '查表引擎', desc: '基于 06MS201 标准图，输入井径自动查表得到配筋和壁厚', color: 'from-emerald-500 to-green-400' },
   { icon: Sparkles, title: 'AI 助手', desc: '接入 DeepSeek / Qwen / Kimi，随时提问排水结构问题', color: 'from-cyan-500 to-blue-400' },
   { icon: Eye, title: '施工步骤展示', desc: '逐步展示从基础到盖板的施工过程', color: 'from-slate-500 to-blue-400' },
